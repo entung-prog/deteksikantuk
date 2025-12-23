@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drowsiness Detection - Testing Interface</title>
+    <link rel="stylesheet" href="drowsiness_test.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>🎥 Drowsiness Detection Testing</h1>
+            <p class="subtitle">Real-time Eye Closure Detection System</p>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Left Panel: Video & Controls -->
+            <div class="left-panel">
+                <!-- Video Container -->
+                <div class="video-container">
+                    <video id="webcam" autoplay playsinline></video>
+                    <canvas id="overlay"></canvas>
+
+                    <!-- Status Overlay -->
+                    <div id="status-overlay" class="status-overlay">
+                        <div id="status-text" class="status-text">NO FACE</div>
+                        <div id="confidence-text" class="confidence-text">--</div>
+                    </div>
+
+                    <!-- FPS Counter -->
+                    <div id="fps-counter" class="fps-counter">FPS: --</div>
+
+                    <!-- Alarm Overlay -->
+                    <div id="alarm-overlay" class="alarm-overlay hidden">
+                        <div class="alarm-text">⚠️ WAKE UP! ⚠️</div>
+                    </div>
+                </div>
+
+                <!-- Control Panel -->
+                <div class="control-panel">
+                    <div class="control-group">
+                        <h3>🎮 Mode Control</h3>
+                        <button id="btn-visualization" class="btn btn-primary">
+                            <span class="btn-icon">👁️</span>
+                            Start Visualization
+                        </button>
+                        <button id="btn-testing" class="btn btn-success">
+                            <span class="btn-icon">📊</span>
+                            Start Testing Mode
+                        </button>
+                    </div>
+
+                    <div class="control-group">
+                        <h3>⚙️ Settings</h3>
+                        <div class="setting-item">
+                            <label for="camera-source">📷 Camera Source:</label>
+                            <select id="camera-source">
+                                <option value="laptop">Webcam Laptop</option>
+                                <option value="pi">Raspberry Pi Camera</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <label for="drowsy-threshold">Drowsy Threshold:</label>
+                            <input type="range" id="drowsy-threshold" min="0.1" max="0.9" step="0.05" value="0.5">
+                            <span id="threshold-value">0.50</span>
+                        </div>
+                        <div class="setting-item">
+                            <label for="alarm-duration">Alarm Duration (seconds):</label>
+                            <input type="number" id="alarm-duration" min="1" max="10" value="3">
+                        </div>
+                        <div class="setting-item">
+                            <label for="capture-interval">Capture Interval (seconds):</label>
+                            <input type="number" id="capture-interval" min="1" max="10" value="2">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Panel -->
+                <div class="stats-panel">
+                    <div class="stat-item">
+                        <div class="stat-label">Model Status</div>
+                        <div id="model-status" class="stat-value">Loading...</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Drowsy Duration</div>
+                        <div id="drowsy-duration" class="stat-value">0.0s</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Total Tests</div>
+                        <div id="total-tests" class="stat-value">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel: Results Table -->
+            <div class="right-panel">
+                <div class="results-header">
+                    <h2>📋 Test Results</h2>
+                    <button id="btn-export" class="btn btn-secondary">
+                        <span class="btn-icon">💾</span>
+                        Export CSV
+                    </button>
+                    <button id="btn-clear" class="btn btn-danger">
+                        <span class="btn-icon">🗑️</span>
+                        Clear
+                    </button>
+                </div>
+
+                <div class="table-container">
+                    <table id="results-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Timestamp</th>
+                                <th>Status</th>
+                                <th>Confidence</th>
+                                <th>Duration</th>
+                            </tr>
+                        </thead>
+                        <tbody id="results-body">
+                            <tr class="no-data">
+                                <td colspan="5">No test data yet. Start testing mode to begin.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Summary Stats -->
+                <div class="summary-stats">
+                    <div class="summary-item">
+                        <span class="summary-label">Alert Count:</span>
+                        <span id="alert-count" class="summary-value">0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Drowsy Count:</span>
+                        <span id="drowsy-count" class="summary-value">0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Avg Confidence:</span>
+                        <span id="avg-confidence" class="summary-value">--</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>Drowsiness Detection System | Model: MobileNetV2 | Python Backend + Web UI</p>
+        </footer>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Loading models...</div>
+    </div>
+
+    <script src="drowsiness_test_hybrid.js"></script>
+</body>
+
+</html>
