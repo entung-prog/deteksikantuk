@@ -38,8 +38,16 @@ IMG_SIZE = (224, 224)
 
 print("Building model...")
 try:
-    # Try loading full model first
-    model = keras.models.load_model(WEIGHTS_PATH)
+    # Try loading full model first with compile=False for compatibility
+    model = keras.models.load_model(WEIGHTS_PATH, compile=False)
+    
+    # Recompile with current TensorFlow version
+    model.compile(
+        optimizer='adam',
+        loss='binary_crossentropy',
+        metrics=['accuracy']
+    )
+    
     print("✅ Model loaded successfully!")
 except:
     # If that fails, build architecture and load weights
