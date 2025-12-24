@@ -9,28 +9,25 @@
 │                                         │
 │  3V3    [ 1] [ 2]  5V                   │
 │  GPIO2  [ 3] [ 4]  5V                   │
-│  GPIO3  [ 5] [ 6]  GND  ◄───┐           │
-│  GPIO4  [ 7] [ 8]  GPIO14   │           │
-│  GND    [ 9] [10]  GPIO15   │           │
-│  GPIO17 [11] [12]  GPIO18   │  GND      │
-│  GPIO27 [13] [14]  GND  ◄───┤  Pins     │
-│  GPIO22 [15] [16]  GPIO23   │           │
-│  3V3    [17] [18]  GPIO24   │           │
-│  GPIO10 [19] [20]  GND  ◄───┤           │
-│  GPIO9  [21] [22]  GPIO25   │           │
-│  GPIO11 [23] [24]  GPIO8    │           │
-│  GND    [25] [26]  GPIO7◄───┘           │
+│  GPIO3  [ 5] [ 6]  GND                  │
+│  GPIO4  [ 7] [ 8]  GPIO14               │
+│  GND    [ 9] [10]  GPIO15  ◄─── GND Buzzer
+│  GPIO17 [11] [12]  GPIO18               │
+│  GPIO27 [13] [14]  GND     ◄─── GND LED │
+│  GPIO22 [15] [16]  GPIO23               │
+│  3V3    [17] [18]  GPIO24               │
+│  GPIO10 [19] [20]  GND                  │
 │  ...                                    │
-│  (Pin 27-40 tidak dipakai)              │
 └─────────────────────────────────────────┘
 
 PIN YANG DIPAKAI:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Pin 11 (GPIO17) → Buzzer
-Pin 13 (GPIO27) → LED Green
+Pin 11 (GPIO17) → Buzzer (+)
+Pin 9  (GND)    → Buzzer (-) 
 Pin 15 (GPIO22) → LED Red
-Pin 18 (GPIO24) → LED Blue
-Pin 6  (GND)    → Ground (bisa juga pin 9, 14, 20)
+Pin 13 (GPIO27) → LED Yellow
+Pin 18 (GPIO24) → LED Green
+Pin 14 (GND)    → LED Cathode (-)
 ```
 
 ---
@@ -41,37 +38,34 @@ Pin 6  (GND)    → Ground (bisa juga pin 9, 14, 20)
 RASPBERRY PI                    BREADBOARD                    KOMPONEN
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-                               ┌─────────────────────────┐
-Pin 11 (GPIO17) ──────────────→│ J1                      │
-        [Merah]                │                         │──→ Buzzer (+)
-                               │                         │
-Pin 15 (GPIO22) ──────────────→│ J2 ─→ [220Ω] ─→ J3     │──→ LED Red (R)
-        [Merah]                │                         │
-                               │                         │
-Pin 13 (GPIO27) ──────────────→│ J4 ─→ [220Ω] ─→ J5     │──→ LED Green (G)
-        [Hijau]                │                         │
-                               │                         │
-Pin 18 (GPIO24) ──────────────→│ J6 ─→ [220Ω] ─→ J7     │──→ LED Blue (B)
-        [Biru]                 │                         │
-                               │                         │
-Pin 6  (GND) ─────────────────→│ GND Rail (-)            │
-        [Hitam]                │    │                    │
-                               │    ├───────────────────→│──→ Buzzer (-)
-                               │    │                    │
-                               │    └───────────────────→│──→ LED Cathode (-)
-                               │                         │
-                               └─────────────────────────┘
+Pin 11 (GPIO17) ──────────────→ Buzzer (+)
+        [Merah]                
+                               
+Pin 9  (GND) ─────────────────→ Buzzer (-)
+        [Hitam]                
+
+Pin 15 (GPIO22) ──────────────→ [220Ω] ──→ LED Red (R)
+        [Merah]                
+
+Pin 13 (GPIO27) ──────────────→ [220Ω] ──→ LED Yellow (Y)
+        [Kuning]                
+
+Pin 18 (GPIO24) ──────────────→ [220Ω] ──→ LED Green (G)
+        [Hijau]                
+
+Pin 14 (GND) ─────────────────→ LED Cathode (-)
+        [Hitam]
 ```
 
 ---
 
 ## 🎨 Detail Komponen
 
-### 1. RGB LED (Common Cathode)
+### 1. RYG LED (Common Cathode) - Traffic Light Style 🚦
 
 ```
      ┌─────────┐
-     │ RGB LED │
+     │ RYG LED │
      │  ┌───┐  │
      │  │ ● │  │  ← LED di dalam
      │  └───┘  │
@@ -79,14 +73,14 @@ Pin 6  (GND) ─────────────────→│ GND Rail 
           │
     ┌─────┴─────┬─────┬─────┐
     │     │     │     │     │
-    R     G     B     -     
+    R     Y     G     -     
     │     │     │     │
-  (Merah)(Hijau)(Biru)(GND)
+  (Merah)(Kuning)(Hijau)(GND)
     
 Kaki LED:
 - Kaki 1 (panjang)   = Red (R)
-- Kaki 2 (panjang)   = Green (G)  
-- Kaki 3 (panjang)   = Blue (B)
+- Kaki 2 (panjang)   = Yellow (Y)  
+- Kaki 3 (panjang)   = Green (G)
 - Kaki 4 (PENDEK)    = Cathode (-) ke GND
 ```
 
