@@ -1,8 +1,7 @@
 """
-Flask Backend Server - Using Model Weights Directly
-====================================================
-This version rebuilds the model architecture and loads weights
-to avoid the batch_shape error.
+Flask Backend Server - Using TensorFlow SavedModel
+===================================================
+Most compatible format, works across different TF versions
 """
 
 from flask import Flask, request, jsonify
@@ -11,9 +10,6 @@ import cv2
 import numpy as np
 import base64
 import tensorflow as tf
-from tensorflow.keras.applications import MobileNetV2
-from tensorflow.keras.layers import Dense, GlobalAveragePooling2D, Dropout
-from tensorflow.keras.models import Model
 
 app = Flask(__name__)
 CORS(app)
@@ -22,71 +18,37 @@ CORS(app)
 # CONFIGURATION
 # ============================================================
 
-WEIGHTS_PATH = 'model_weights.weights.h5'
+MODEL_PATH = 'saved_model'  # SavedModel directory
 IMG_SIZE = (224, 224)
 
 # ============================================================
-# BUILD MODEL AND LOAD WEIGHTS
+# LOAD SAVEDMODEL
 # ============================================================
 
 print("="*60)
-print("🏗️  Building model architecture...")
+print("📦 Loading SavedModel...")
 
-# Build MobileNetV2 architecture
-base_model = MobileNetV2(
-    input_shape=(224, 224, 3),
-    include_top=False,
-    weights=None
-)
-
-x = base_model.output
-x = GlobalAveragePooling2D()(x)
-x = Dense(128, activation='relu')(x)
-x = Dropout(0.5)(x)
-predictions = Dense(4, activation='softmax')(x)
-
-model = Model(inputs=base_model.input, outputs=predictions)
-
-print("✅ Architecture built!")
-print(f"   Input shape: {model.input_shape}")
-print(f"   Output shape: {model.output_shape}")
-
-# Load weights
-print(f"\n📦 Loading weights from {WEIGHTS_PATH}...")
 try:
-    # Try loading with skip_mismatch to handle architecture differences
-    model.load_weights(WEIGHTS_PATH, skip_mismatch=True, by_name=True)
-    print("✅ Weights loaded successfully!")
-    print("   (Note: Some layers may have been skipped due to mismatch)")
-except Exception as e1:
-    print(f"⚠️  First attempt failed: {str(e1)[:100]}")
-    print("   Trying alternative loading method...")
+    model = tf.saved_model.load(MODEL_PATH)
+    # Get inference function
+    infer = model.signatures['serving_default']
     
-    try:
-        # Try without skip_mismatch
-        model.load_weights(WEIGHTS_PATH, by_name=True)
-        print("✅ Weights loaded successfully!")
-    except Exception as e2:
-        print(f"⚠️  Second attempt failed: {str(e2)[:100]}")
-        print("   Trying to load from H5 model instead...")
-        
-        try:
-            # Try loading from best_model.h5 if available
-            h5_model = tf.keras.models.load_model('best_model.h5', compile=False)
-            # Copy weights from loaded model
-            for layer, h5_layer in zip(model.layers, h5_model.layers):
-                try:
-                    layer.set_weights(h5_layer.get_weights())
-                except:
-                    pass
-            print("✅ Weights loaded from H5 model!")
-        except Exception as e3:
-            print(f"❌ All loading methods failed!")
-            print(f"   Error: {e3}")
-            print("\n💡 SOLUTION:")
-            print("   The weights file format may not match this architecture.")
-            print("   Please use convert_weights_to_tflite.py to create TFLite model instead.")
-            model = None
+    print("✅ SavedModel loaded successfully!")
+    print(f"   Model path: {MODEL_PATH}")
+    print(f"   Available signatures: {list(model.signatures.keys())}")
+    
+    # Get input/output names
+    input_name = list(infer.structured_input_signature[1].keys())[0]
+    output_name = list(infer.structured_outputs.keys())[0]
+    
+    print(f"   Input name: {input_name}")
+    print(f"   Output name: {output_name}")
+    
+except Exception as e:
+    print(f"❌ Error loading SavedModel: {e}")
+    print("\n💡 Run fix_model_formats.py first to create SavedModel")
+    model = None
+    infer = None
 
 # Face detector
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
@@ -124,19 +86,23 @@ def get_eye_regions(frame, face_rect):
     return left_eye, right_eye
 
 def predict_eye_region(eye_img):
-    """Predict from eye region"""
+    """Predict from eye region using SavedModel"""
     if eye_img.size == 0 or eye_img.shape[0] < 10 or eye_img.shape[1] < 10:
         return None
     
     # Preprocess
     eye_resized = cv2.resize(eye_img, IMG_SIZE)
     eye_rgb = cv2.cvtColor(eye_resized, cv2.COLOR_BGR2RGB)
-    eye_array = np.expand_dims(eye_rgb / 255.0, axis=0)
+    eye_array = np.expand_dims(eye_rgb / 255.0, axis=0).astype(np.float32)
     
-    # Predict
-    prediction = model.predict(eye_array, verbose=0)
+    # Convert to tensor
+    input_tensor = tf.constant(eye_array)
     
-    return float(prediction[0][0])
+    # Predict using SavedModel
+    prediction = infer(**{input_name: input_tensor})
+    output = prediction[output_name].numpy()
+    
+    return float(output[0][0])
 
 # ============================================================
 # API ENDPOINTS
@@ -148,8 +114,8 @@ def health_check():
     return jsonify({
         'status': 'ok',
         'model_loaded': model is not None,
-        'model_type': 'Keras (from weights)',
-        'weights_file': WEIGHTS_PATH
+        'model_type': 'TensorFlow SavedModel',
+        'model_path': MODEL_PATH
     })
 
 @app.route('/api/predict', methods=['POST'])
@@ -233,7 +199,7 @@ if __name__ == '__main__':
     print("API endpoints:")
     print("  - GET  /api/health  - Health check")
     print("  - POST /api/predict - Predict drowsiness")
-    print(f"Model: Keras (loaded from {WEIGHTS_PATH})")
+    print(f"Model: TensorFlow SavedModel ({MODEL_PATH})")
     print("="*60 + "\n")
     
     app.run(host='0.0.0.0', port=5001, debug=False)
