@@ -9,6 +9,7 @@ from flask_cors import CORS
 import cv2
 import numpy as np
 import base64
+import atexit
 
 # Try TFLite runtime first (lighter), fallback to TensorFlow
 try:
@@ -47,6 +48,18 @@ except Exception as e:
     print(f"❌ Error loading model: {e}")
     print("\n💡 Run convert_model.py first to create best_model.tflite")
     interpreter = None
+
+# Initialize hardware alert system
+try:
+    from hardware_alert import HardwareAlert
+    hardware = HardwareAlert()
+    print("✅ Hardware alert system ready")
+    HARDWARE_ENABLED = True
+except Exception as e:
+    print(f"⚠️  Hardware alert disabled: {e}")
+    print("   (Running without GPIO - OK for testing)")
+    hardware = None
+    HARDWARE_ENABLED = False
 
 # Face detector
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
@@ -118,6 +131,11 @@ def predict():
         faces = face_cascade.detectMultiScale(gray, 1.3, 5)
         
         if len(faces) == 0:
+            # No face detected - turn off hardware alerts
+            if HARDWARE_ENABLED and hardware:
+                hardware.led_off()
+                hardware.stop_buzzer()
+            
             return jsonify({
                 'face_detected': False,
                 'confidence': None,
@@ -134,6 +152,11 @@ def predict():
                 predictions.append(pred)
         
         if not predictions:
+            # Eyes not detected - turn off hardware alerts
+            if HARDWARE_ENABLED and hardware:
+                hardware.led_off()
+                hardware.stop_buzzer()
+            
             return jsonify({
                 'face_detected': True,
                 'confidence': None,
@@ -143,11 +166,16 @@ def predict():
         
         avg_confidence = float(np.mean(predictions))
         threshold = float(data.get('threshold', 0.5))
+        is_drowsy = avg_confidence < threshold
+        
+        # Update hardware alert
+        if HARDWARE_ENABLED and hardware:
+            hardware.update_status(avg_confidence, is_drowsy)
         
         return jsonify({
             'face_detected': True,
             'confidence': avg_confidence,
-            'is_drowsy': avg_confidence < threshold,
+            'is_drowsy': is_drowsy,
             'face_box': {
                 'x': int(face[0]),
                 'y': int(face[1]),
@@ -159,12 +187,32 @@ def predict():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+def cleanup():
+    """Cleanup hardware on shutdown"""
+    if HARDWARE_ENABLED and hardware:
+        print("\n🔧 Cleaning up hardware...")
+        hardware.cleanup()
+
 if __name__ == '__main__':
+    # Register cleanup handler
+    atexit.register(cleanup)
+    
     print("\n" + "="*60)
     print("Server: http://0.0.0.0:5001")
     print("Endpoints:")
     print("  GET  /api/health")
     print("  POST /api/predict")
+    if HARDWARE_ENABLED:
+        print("\n🔔 Hardware Alerts: ENABLED")
+        print("   Buzzer: GPIO17")
+        print("   RGB LED: R=GPIO22, G=GPIO27, B=GPIO24")
+    else:
+        print("\n⚠️  Hardware Alerts: DISABLED")
     print("="*60 + "\n")
     
-    app.run(host='0.0.0.0', port=5001, debug=False)
+    try:
+        app.run(host='0.0.0.0', port=5001, debug=False)
+    except KeyboardInterrupt:
+        print("\n\nShutting down...")
+    finally:
+        cleanup()
