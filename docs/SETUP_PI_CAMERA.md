@@ -37,9 +37,8 @@ raspistill -o test.jpg
 cd ~/deteksikantuk
 source venv/bin/activate
 
-# Install picamera2 (untuk Pi Camera Module)
-sudo apt-get update
-sudo apt-get install -y python3-picamera2
+# Install picamzero (untuk Pi Camera Module)
+sudo apt install python3-picamzero
 
 # Install dependencies lainnya
 pip install flask opencv-python-headless tflite-runtime
@@ -76,7 +75,7 @@ python camera_stream.py
 Expected output:
 ```
 📷 RASPBERRY PI CAMERA STREAMING SERVER
-✅ Camera Type: picamera2
+✅ Camera Type: picamzero
 
 Camera stream available at:
   - http://192.168.0.108:8080
@@ -129,10 +128,10 @@ sudo usermod -a -G video $USER
 sudo reboot
 ```
 
-### Error: "No module named 'picamera2'"
+### Error: "No module named 'picamzero'"
 
 ```bash
-sudo apt-get install -y python3-picamera2
+sudo apt install python3-picamzero
 ```
 
 ### Camera stream tidak muncul di web
@@ -164,7 +163,7 @@ Kalau muncul video, berarti camera OK. Problem di frontend.
                         ▼
               ┌─────────────────┐
               │  Pi Camera v1.3 │
-              │  (picamera2)    │
+              │  (picamzero)    │
               └─────────────────┘
 ```
 
@@ -175,7 +174,7 @@ Kalau muncul video, berarti camera OK. Problem di frontend.
 - [ ] Enable Legacy Camera di raspi-config
 - [ ] Reboot Raspberry Pi
 - [ ] Test camera dengan `libcamera-hello`
-- [ ] Install picamera2
+- [ ] Install picamzero
 - [ ] Run `backend_server.py` (Terminal 1)
 - [ ] Run `camera_stream.py` (Terminal 2)
 - [ ] Akses web dari laptop
@@ -187,7 +186,7 @@ Kalau muncul video, berarti camera OK. Problem di frontend.
 ## 💡 Tips
 
 - **Pi Camera v1.3** butuh **Legacy Camera** enabled
-- **picamera2** lebih modern dari picamera (deprecated)
+- **picamzero** lebih simple dan mudah dipakai
 - Camera stream di port **8080**, backend di port **5001**
 - Web interface di port **8000**
 
