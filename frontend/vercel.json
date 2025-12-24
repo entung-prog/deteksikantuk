@@ -6,6 +6,10 @@
   "trailingSlash": false,
   "rewrites": [
     {
+      "source": "/",
+      "destination": "/drowsiness_test.html"
+    },
+    {
       "source": "/api/:path*",
       "destination": "https://api-drowsiness.your-tunnel-url.com/api/:path*"
     }
