@@ -21,14 +21,10 @@ except ImportError:
 
 app = Flask(__name__)
 
-# CORS configuration for Vercel deployment
+# CORS configuration - allow all origins for local network testing
 CORS(app, resources={
     r"/api/*": {
-        "origins": [
-            "http://localhost:8000",  # Local development
-            "https://*.vercel.app",   # Vercel preview/production
-            "https://*.your-domain.com"  # Custom domain (update this)
-        ],
+        "origins": "*",
         "methods": ["GET", "POST", "OPTIONS"],
         "allow_headers": ["Content-Type"]
     }
