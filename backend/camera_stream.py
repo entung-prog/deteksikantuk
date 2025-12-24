@@ -1,6 +1,6 @@
 """
 Camera Streaming Server for Raspberry Pi
-Supports both USB webcam and Raspberry Pi Camera Module
+Supports both USB webcam and Raspberry Pi Camera Module (libcamera/picamera2)
 """
 
 from flask import Flask, Response, render_template_string
@@ -58,18 +58,23 @@ CAMERA_HTML = """
 </html>
 """
 
-def initialize_picamzero():
-    """Initialize Raspberry Pi Camera Module using picamzero"""
+def initialize_picamera2():
+    """Initialize Raspberry Pi Camera Module using picamera2 (libcamera)"""
     try:
-        from picamzero import Camera
+        from picamera2 import Picamera2
         
-        camera = Camera()
-        camera.resolution = (640, 480)
+        camera = Picamera2()
+        # Configure for video streaming
+        config = camera.create_video_configuration(
+            main={"size": (640, 480), "format": "RGB888"}
+        )
+        camera.configure(config)
+        camera.start()
         
-        print("✅ Raspberry Pi Camera Module initialized (picamzero)")
-        return camera, "picamzero"
+        print("✅ Raspberry Pi Camera Module initialized (picamera2/libcamera)")
+        return camera, "picamera2"
     except Exception as e:
-        print(f"❌ picamzero error: {e}")
+        print(f"❌ picamera2 error: {e}")
         return None, None
 
 def initialize_opencv_camera():
@@ -98,11 +103,11 @@ def initialize_opencv_camera():
         return None, None
 
 def initialize_camera():
-    """Initialize camera - try picamzero first, then OpenCV"""
+    """Initialize camera - try picamera2 first, then OpenCV"""
     global camera, camera_type
     
     # Try Raspberry Pi Camera Module first
-    camera, camera_type = initialize_picamzero()
+    camera, camera_type = initialize_picamera2()
     if camera:
         return True
     
@@ -114,16 +119,16 @@ def initialize_camera():
     print("❌ No camera found!")
     return False
 
-def capture_frames_picamzero():
-    """Capture frames from picamzero"""
+def capture_frames_picamera2():
+    """Capture frames from picamera2"""
     global camera, output_frame, lock
     
     while True:
         try:
-            # Capture frame as numpy array
+            # Capture frame as numpy array (already in RGB888)
             frame = camera.capture_array()
             
-            # picamzero returns RGB, convert to BGR for OpenCV
+            # Convert RGB to BGR for OpenCV compatibility
             frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
             
             with lock:
@@ -149,8 +154,8 @@ def capture_frames_opencv():
 
 def capture_frames():
     """Capture frames based on camera type"""
-    if camera_type == "picamzero":
-        capture_frames_picamzero()
+    if camera_type == "picamera2":
+        capture_frames_picamera2()
     else:
         capture_frames_opencv()
 
@@ -199,9 +204,9 @@ if __name__ == '__main__':
     if not initialize_camera():
         print("\n❌ Failed to initialize camera!")
         print("\nTroubleshooting:")
-        print("1. For Pi Camera Module:")
-        print("   sudo raspi-config → Interface Options → Legacy Camera → Enable")
-        print("   sudo apt install python3-picamzero")
+        print("1. For Pi Camera Module (libcamera):")
+        print("   sudo apt install -y python3-picamera2")
+        print("   Test: libcamera-hello --list-cameras")
         print("\n2. For USB Camera:")
         print("   Check: ls /dev/video*")
         print("   Install: sudo apt-get install python3-opencv")
@@ -223,5 +228,6 @@ if __name__ == '__main__':
     finally:
         if camera_type == "opencv" and camera:
             camera.release()
-        elif camera_type == "picamzero" and camera:
+        elif camera_type == "picamera2" and camera:
+            camera.stop()
             camera.close()
