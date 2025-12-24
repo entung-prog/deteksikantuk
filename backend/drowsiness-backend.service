@@ -1,0 +1,15 @@
+[Unit]
+Description=Drowsiness Detection Backend Server
+After=network.target
+
+[Service]
+Type=simple
+User=entung
+WorkingDirectory=/home/entung/deteksikantuk
+Environment="PATH=/home/entung/deteksikantuk/venv/bin"
+ExecStart=/home/entung/deteksikantuk/venv/bin/python backend_server.py
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
