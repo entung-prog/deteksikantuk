@@ -20,7 +20,19 @@ except ImportError:
     USING_TFLITE_RUNTIME = False
 
 app = Flask(__name__)
-CORS(app)
+
+# CORS configuration for Vercel deployment
+CORS(app, resources={
+    r"/api/*": {
+        "origins": [
+            "http://localhost:8000",  # Local development
+            "https://*.vercel.app",   # Vercel preview/production
+            "https://*.your-domain.com"  # Custom domain (update this)
+        ],
+        "methods": ["GET", "POST", "OPTIONS"],
+        "allow_headers": ["Content-Type"]
+    }
+})
 
 # Configuration
 MODEL_PATH = 'best_model.tflite'
