@@ -49,7 +49,7 @@ const avgConfidence = document.getElementById('avg-confidence');
 // State
 let testResults = [];
 let drowsyStartTime = null;
-let cameraSource = 'laptop'; // 'laptop' or 'pi'
+let cameraSource = 'pi'; // 'laptop' or 'pi' - default to Pi Camera
 const CAMERA_STREAM_URL = `http://${window.location.hostname}:8080/video_feed`;
 let currentDrowsyDuration = 0;
 let lastFrameTime = Date.now();
