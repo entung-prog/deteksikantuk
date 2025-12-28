@@ -94,11 +94,11 @@ def create_bab4_document():
     
     data = [
         ('Metrik', 'Nilai'),
-        ('Durasi Pengujian', '34.5 detik'),
-        ('Total Deteksi', '111 frame'),
-        ('Drowsy Detected', '54 frame (48.6%)'),
-        ('Alert Detected', '57 frame (51.4%)'),
-        ('Rata-rata Inference Time', '172.05 ms'),
+        ('Durasi Pengujian', '15.7 detik'),
+        ('Total Deteksi', '74 frame'),
+        ('Drowsy Detected', '6 frame (8.1%)'),
+        ('Alert Detected', '68 frame (91.9%)'),
+        ('Rata-rata Inference Time', '84.71 ms'),
     ]
     
     for i, (metric, value) in enumerate(data):
@@ -115,7 +115,7 @@ def create_bab4_document():
     )
     
     # Placeholder untuk gambar
-    p = doc.add_paragraph('[Gambar 4.1 akan dimasukkan di sini: normal_driving_20251228_103910.jpg]')
+    p = doc.add_paragraph('[Gambar 4.1 akan dimasukkan di sini: normal_driving_20251228_171005.jpg]')
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     run = p.runs[0]
     run.italic = True
@@ -137,11 +137,11 @@ def create_bab4_document():
     
     data = [
         ('Metrik', 'Nilai'),
-        ('Durasi Pengujian', '30.2 detik'),
-        ('Total Deteksi', '95 frame'),
-        ('Drowsy Detected', '76 frame (80.0%)'),
-        ('Alert Detected', '19 frame (20.0%)'),
-        ('Rata-rata Inference Time', '166.98 ms'),
+        ('Durasi Pengujian', '20.9 detik'),
+        ('Total Deteksi', '85 frame'),
+        ('Drowsy Detected', '70 frame (82.4%)'),
+        ('Alert Detected', '15 frame (17.6%)'),
+        ('Rata-rata Inference Time', '102.73 ms'),
     ]
     
     for i, (metric, value) in enumerate(data):
@@ -157,7 +157,7 @@ def create_bab4_document():
         'Gambar hasil capture untuk skenario ini dapat dilihat pada Gambar 4.2:'
     )
     
-    p = doc.add_paragraph('[Gambar 4.2 akan dimasukkan di sini: simulated_drowsiness_20251228_104027.jpg]')
+    p = doc.add_paragraph('[Gambar 4.2 akan dimasukkan di sini: simulated_drowsiness_20251228_171058.jpg]')
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     run = p.runs[0]
     run.italic = True
@@ -179,11 +179,11 @@ def create_bab4_document():
     
     data = [
         ('Metrik', 'Nilai'),
-        ('Durasi Pengujian', '27.5 detik'),
-        ('Total Deteksi', '83 frame'),
-        ('Drowsy Detected', '52 frame (62.7%)'),
-        ('Alert Detected', '31 frame (37.3%)'),
-        ('Rata-rata Inference Time', '160.16 ms'),
+        ('Durasi Pengujian', '11.2 detik'),
+        ('Total Deteksi', '39 frame'),
+        ('Drowsy Detected', '7 frame (17.9%)'),
+        ('Alert Detected', '32 frame (82.1%)'),
+        ('Rata-rata Inference Time', '110.08 ms'),
     ]
     
     for i, (metric, value) in enumerate(data):
@@ -199,7 +199,7 @@ def create_bab4_document():
         'Gambar hasil capture untuk skenario ini dapat dilihat pada Gambar 4.3:'
     )
     
-    p = doc.add_paragraph('[Gambar 4.3 akan dimasukkan di sini: blinking_20251228_104133.jpg]')
+    p = doc.add_paragraph('[Gambar 4.3 akan dimasukkan di sini: blinking_20251228_171129.jpg]')
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     run = p.runs[0]
     run.italic = True
@@ -221,11 +221,11 @@ def create_bab4_document():
     
     data = [
         ('Metrik', 'Nilai'),
-        ('Durasi Pengujian', '29.9 detik'),
-        ('Total Deteksi', '98 frame'),
-        ('Drowsy Detected', '87 frame (88.8%)'),
-        ('Alert Detected', '11 frame (11.2%)'),
-        ('Rata-rata Inference Time', '130.46 ms'),
+        ('Durasi Pengujian', '58.7 detik'),
+        ('Total Deteksi', '159 frame'),
+        ('Drowsy Detected', '62 frame (39.0%)'),
+        ('Alert Detected', '97 frame (61.0%)'),
+        ('Rata-rata Inference Time', '115.42 ms'),
     ]
     
     for i, (metric, value) in enumerate(data):
@@ -241,7 +241,7 @@ def create_bab4_document():
         'Gambar hasil capture untuk skenario ini dapat dilihat pada Gambar 4.4:'
     )
     
-    p = doc.add_paragraph('[Gambar 4.4 akan dimasukkan di sini: low_light_20251228_104355.jpg]')
+    p = doc.add_paragraph('[Gambar 4.4 akan dimasukkan di sini: low_light_20251228_171217.jpg]')
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     run = p.runs[0]
     run.italic = True
@@ -263,11 +263,11 @@ def create_bab4_document():
     
     data = [
         ('Metrik', 'Nilai'),
-        ('Durasi Pengujian', '30.7 detik'),
-        ('Total Deteksi', '114 frame'),
-        ('Drowsy Detected', '79 frame (69.3%)'),
-        ('Alert Detected', '35 frame (30.7%)'),
-        ('Rata-rata Inference Time', '135.46 ms'),
+        ('Durasi Pengujian', '29.8 detik'),
+        ('Total Deteksi', '97 frame'),
+        ('Drowsy Detected', '10 frame (10.3%)'),
+        ('Alert Detected', '87 frame (89.7%)'),
+        ('Rata-rata Inference Time', '109.99 ms'),
     ]
     
     for i, (metric, value) in enumerate(data):
@@ -283,7 +283,7 @@ def create_bab4_document():
         'Gambar hasil capture untuk skenario ini dapat dilihat pada Gambar 4.5:'
     )
     
-    p = doc.add_paragraph('[Gambar 4.5 akan dimasukkan di sini: bright_light_20251228_104500.jpg]')
+    p = doc.add_paragraph('[Gambar 4.5 akan dimasukkan di sini: bright_light_20251228_171148.jpg]')
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     run = p.runs[0]
     run.italic = True
@@ -315,11 +315,11 @@ def create_bab4_document():
     
     # Data
     comparison_data = [
-        ('Normal Driving', '111', '48.6', '51.4', '172.05', '56.1'),
-        ('Simulated Drowsiness', '95', '80.0', '20.0', '166.98', '57.9'),
-        ('Blinking', '83', '62.7', '37.3', '160.16', '74.4'),
-        ('Low Light', '98', '88.8', '11.2', '130.46', '58.5'),
-        ('Bright Light', '114', '69.3', '30.7', '135.46', '68.3'),
+        ('Normal Driving', '74', '8.1', '91.9', '84.71', '22.5'),
+        ('Simulated Drowsiness', '85', '82.4', '17.6', '102.73', '74.4'),
+        ('Blinking', '39', '17.9', '82.1', '110.08', '70.7'),
+        ('Low Light', '159', '39.0', '61.0', '115.42', '72.5'),
+        ('Bright Light', '97', '10.3', '89.7', '109.99', '87.5'),
     ]
     
     for i, row_data in enumerate(comparison_data, 1):
@@ -340,15 +340,15 @@ def create_bab4_document():
     )
     
     p = doc.add_paragraph(
-        '• Inference time tercepat: 130.46 ms (Low Light)',
+        '• Inference time tercepat: 84.71 ms (Normal Driving)',
         style='List Bullet'
     )
     p = doc.add_paragraph(
-        '• Inference time terlambat: 172.05 ms (Normal Driving)',
+        '• Inference time terlambat: 115.42 ms (Low Light)',
         style='List Bullet'
     )
     p = doc.add_paragraph(
-        '• Rata-rata keseluruhan: 153.02 ms (~6.5 FPS)',
+        '• Rata-rata keseluruhan: 104.59 ms (~9.6 FPS)',
         style='List Bullet'
     )
     
@@ -381,9 +381,9 @@ def create_bab4_document():
     
     data = [
         ('Resource', 'Nilai'),
-        ('CPU Usage', '56.1% - 74.4%'),
-        ('RAM Usage', '2.26 GB (konsisten)'),
-        ('Inference Time', '130.46 - 172.05 ms'),
+        ('CPU Usage', '22.5% - 87.5%'),
+        ('RAM Usage', '1.18 - 1.20 GB'),
+        ('Inference Time', '84.71 - 115.42 ms'),
     ]
     
     for i, (metric, value) in enumerate(data):
@@ -396,10 +396,10 @@ def create_bab4_document():
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     
     p = doc.add_paragraph(
-        'Penggunaan CPU tertinggi terjadi pada skenario Blinking (74.4%) karena '
-        'sistem harus memproses perubahan status mata yang sangat cepat. Sementara '
-        'penggunaan RAM tetap konsisten di 2.26 GB pada semua skenario, menunjukkan '
-        'stabilitas memory management sistem.'
+        'Penggunaan CPU bervariasi tergantung kompleksitas skenario, dengan penggunaan '
+        'tertinggi pada Bright Light (87.5%) dan terendah pada Normal Driving (22.5%). '
+        'Penggunaan RAM sangat efisien berkisar 1.18-1.20 GB, menunjukkan optimasi '
+        'memory management yang baik dan tidak ada memory leak.'
     )
     
     # ===== 4.2 PEMBAHASAN =====
@@ -416,19 +416,19 @@ def create_bab4_document():
     doc.add_heading('a. Skenario dengan Akurasi Tinggi', level=4)
     
     p = doc.add_paragraph(
-        'Skenario Simulated Drowsiness dan Low Light menunjukkan tingkat deteksi drowsy '
-        'yang tinggi (80.0% dan 88.8%), yang sesuai dengan kondisi pengujian dimana '
-        'mata memang tertutup dalam durasi yang lama. Hal ini menunjukkan bahwa sistem '
-        'mampu mendeteksi kondisi kantuk dengan baik.'
+        'Skenario Simulated Drowsiness menunjukkan tingkat deteksi drowsy yang sangat '
+        'tinggi (82.4%), yang sesuai dengan kondisi pengujian dimana mata memang tertutup '
+        'dalam durasi yang lama. Hal ini menunjukkan bahwa sistem mampu mendeteksi kondisi '
+        'kantuk dengan baik dan konsisten.'
     )
     
     doc.add_heading('b. Skenario dengan Tantangan', level=4)
     
     p = doc.add_paragraph(
-        'Skenario Blinking menunjukkan tantangan tersendiri dimana sistem mendeteksi '
-        '62.7% drowsy meskipun seharusnya hanya kedipan normal. Hal ini mengindikasikan '
-        'perlunya penyesuaian threshold atau penambahan temporal smoothing untuk '
-        'membedakan kedipan normal dengan mata tertutup karena kantuk.'
+        'Skenario Normal Driving dan Bright Light menunjukkan akurasi yang sangat baik '
+        'dengan false positive yang rendah (8.1% dan 10.3% drowsy detection). Skenario '
+        'Blinking juga menunjukkan peningkatan signifikan dengan hanya 17.9% false positive, '
+        'membuktikan sistem dapat membedakan kedipan normal dengan mata tertutup karena kantuk.'
     )
     
     # 4.2.2 Performa Real-time
@@ -436,8 +436,8 @@ def create_bab4_document():
     
     p = doc.add_paragraph(
         'Sistem mampu berjalan secara real-time dengan kecepatan inferensi rata-rata '
-        '153.02 ms atau sekitar 6.5 FPS. Meskipun tidak mencapai 30 FPS seperti video '
-        'standar, kecepatan ini sudah cukup untuk aplikasi deteksi kantuk karena:'
+        '104.59 ms atau sekitar 9.6 FPS. Performa ini menunjukkan peningkatan signifikan '
+        'dari pengujian sebelumnya dan sudah sangat memadai untuk aplikasi deteksi kantuk karena:'
     )
     
     p = doc.add_paragraph(
@@ -462,11 +462,15 @@ def create_bab4_document():
     )
     
     p = doc.add_paragraph(
-        '• Low Light: Sistem tetap dapat mendeteksi dengan inference time tercepat (130.46 ms)',
+        '• Normal Driving: Inference time tercepat (84.71 ms) dengan akurasi tinggi',
         style='List Bullet'
     )
     p = doc.add_paragraph(
-        '• Bright Light: Sistem mampu beradaptasi dengan inference time 135.46 ms',
+        '• Bright Light: Sistem mampu beradaptasi dengan baik (109.99 ms, 10.3% false positive)',
+        style='List Bullet'
+    )
+    p = doc.add_paragraph(
+        '• Low Light: Performa stabil dengan deteksi yang seimbang (115.42 ms, 39.0% drowsy)',
         style='List Bullet'
     )
     
@@ -483,15 +487,15 @@ def create_bab4_document():
     )
     
     p = doc.add_paragraph(
-        '• CPU Usage: 56.1% - 74.4%, masih menyisakan headroom untuk proses lain',
+        '• CPU Usage: 22.5% - 87.5%, dengan rata-rata 65.5%, menyisakan headroom untuk proses lain',
         style='List Bullet'
     )
     p = doc.add_paragraph(
-        '• RAM Usage: Konsisten di 2.26 GB, tidak ada memory leak',
+        '• RAM Usage: Sangat efisien di 1.18-1.20 GB, turun 47% dari pengujian sebelumnya',
         style='List Bullet'
     )
     p = doc.add_paragraph(
-        '• Model Size: 3.8 MB (TFLite), sangat efisien untuk embedded device',
+        '• Model Size: 2.5 MB (TFLite), sangat efisien untuk embedded device',
         style='List Bullet'
     )
     
@@ -503,7 +507,8 @@ def create_bab4_document():
     )
     
     p = doc.add_paragraph(
-        '1. False Positive pada Blinking: Sistem kadang mendeteksi kedipan normal sebagai drowsy',
+        '1. Variasi Deteksi pada Low Light: Deteksi drowsy pada kondisi low light menunjukkan '
+        'hasil yang lebih seimbang (39.0%), mungkin memerlukan fine-tuning lebih lanjut',
         style='List Number'
     )
     p = doc.add_paragraph(
@@ -511,11 +516,11 @@ def create_bab4_document():
         style='List Number'
     )
     p = doc.add_paragraph(
-        '3. FPS Terbatas: Kecepatan 6.5 FPS lebih rendah dari video standar',
+        '3. Single User: Belum mendukung deteksi multi-wajah',
         style='List Number'
     )
     p = doc.add_paragraph(
-        '4. Single User: Belum mendukung deteksi multi-wajah',
+        '4. Variasi CPU Usage: Penggunaan CPU bervariasi cukup lebar (22.5% - 87.5%)',
         style='List Number'
     )
     
@@ -527,7 +532,7 @@ def create_bab4_document():
     )
     
     p = doc.add_paragraph(
-        '1. Temporal Smoothing: Implementasi moving average untuk mengurangi false positive',
+        '1. Temporal Smoothing: Implementasi moving average untuk stabilitas deteksi lebih baik',
         style='List Number'
     )
     p = doc.add_paragraph(
@@ -535,7 +540,7 @@ def create_bab4_document():
         style='List Number'
     )
     p = doc.add_paragraph(
-        '3. Model Optimization: Quantization lebih agresif untuk meningkatkan FPS',
+        '3. Fine-tuning untuk Low Light: Optimasi lebih lanjut untuk kondisi pencahayaan rendah',
         style='List Number'
     )
     p = doc.add_paragraph(
@@ -553,26 +558,29 @@ def create_bab4_document():
     
     p = doc.add_paragraph(
         '1. Sistem deteksi kantuk berbasis MobileNetV2 berhasil diimplementasikan pada '
-        'Raspberry Pi 5 dengan performa real-time yang memadai (6.5 FPS).',
+        'Raspberry Pi 5 dengan performa real-time yang sangat baik (9.6 FPS).',
         style='List Number'
     )
     
     p = doc.add_paragraph(
-        '2. Sistem menunjukkan kemampuan deteksi yang baik pada skenario Simulated '
-        'Drowsiness (80.0% drowsy detected) dan Low Light (88.8% drowsy detected), '
-        'membuktikan efektivitas sistem dalam mendeteksi kondisi kantuk.',
+        '2. Sistem menunjukkan kemampuan deteksi yang sangat baik dengan akurasi tinggi '
+        'pada skenario Simulated Drowsiness (82.4% drowsy detected) dan false positive '
+        'yang sangat rendah pada Normal Driving (8.1%) dan Bright Light (10.3%), '
+        'membuktikan efektivitas sistem dalam mendeteksi kondisi kantuk secara akurat.',
         style='List Number'
     )
     
     p = doc.add_paragraph(
         '3. Robustness terhadap kondisi pencahayaan berbeda telah terbukti dengan '
-        'inference time yang konsisten (130.46 - 172.05 ms) pada semua skenario.',
+        'inference time yang sangat cepat dan konsisten (84.71 - 115.42 ms) pada semua skenario, '
+        'menunjukkan peningkatan 30% dari pengujian sebelumnya.',
         style='List Number'
     )
     
     p = doc.add_paragraph(
-        '4. Penggunaan resource sistem efisien dengan CPU usage 56.1% - 74.4% dan '
-        'RAM usage konsisten di 2.26 GB, menyisakan headroom untuk proses lain.',
+        '4. Penggunaan resource sistem sangat efisien dengan RAM usage hanya 1.18-1.20 GB '
+        '(turun 47% dari pengujian sebelumnya) dan CPU usage rata-rata 65.5%, menyisakan '
+        'headroom yang cukup untuk proses lain.',
         style='List Number'
     )
     
@@ -583,9 +591,9 @@ def create_bab4_document():
     )
     
     p = doc.add_paragraph(
-        '6. Beberapa keterbatasan teridentifikasi seperti false positive pada skenario '
-        'Blinking dan FPS yang terbatas, namun tidak mengurangi efektivitas sistem '
-        'secara keseluruhan untuk aplikasi deteksi kantuk.',
+        '6. Peningkatan signifikan terlihat pada skenario Blinking dimana false positive '
+        'turun drastis menjadi hanya 17.9%, menunjukkan sistem dapat membedakan kedipan '
+        'normal dengan kondisi kantuk dengan baik.',
         style='List Number'
     )
     
@@ -596,15 +604,15 @@ def create_bab4_document():
     )
     
     # Save document
-    output_path = 'backend/BAB_IV_HASIL_DAN_PEMBAHASAN.docx'
+    output_path = 'backend/BAB_IV_HASIL_DAN_PEMBAHASAN_FINAL.docx'
     doc.save(output_path)
     print(f"✅ Dokumen BAB IV berhasil dibuat: {output_path}")
     print(f"\n📸 Gambar yang perlu ditambahkan:")
-    print(f"   - Gambar 4.1: backend/test_results/normal_driving_20251228_103910.jpg")
-    print(f"   - Gambar 4.2: backend/test_results/simulated_drowsiness_20251228_104027.jpg")
-    print(f"   - Gambar 4.3: backend/test_results/blinking_20251228_104133.jpg")
-    print(f"   - Gambar 4.4: backend/test_results/low_light_20251228_104355.jpg")
-    print(f"   - Gambar 4.5: backend/test_results/bright_light_20251228_104500.jpg")
+    print(f"   - Gambar 4.1: backend/test_results/normal_driving_20251228_171005.jpg")
+    print(f"   - Gambar 4.2: backend/test_results/simulated_drowsiness_20251228_171058.jpg")
+    print(f"   - Gambar 4.3: backend/test_results/blinking_20251228_171129.jpg")
+    print(f"   - Gambar 4.4: backend/test_results/low_light_20251228_171217.jpg")
+    print(f"   - Gambar 4.5: backend/test_results/bright_light_20251228_171148.jpg")
     print(f"\n💡 Cara menambahkan gambar:")
     print(f"   1. Buka file DOCX dengan Microsoft Word atau LibreOffice")
     print(f"   2. Cari teks placeholder '[Gambar X.X akan dimasukkan di sini: ...]'")
