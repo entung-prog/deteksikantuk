@@ -50,7 +50,7 @@ rsync -avz --progress \
   --exclude '.git/' \
   --exclude '*.pyc' \
   --exclude '.lgd-nfy0' \
-  backend/ README.md \
+  backend/ autostart/ README.md AUTOSTART_AUTO.md \
   ${RASPI_USER}@${RASPI_IP}:${RASPI_PATH}/
 
 echo ""
@@ -60,9 +60,12 @@ echo -e "${GREEN}========================================${NC}"
 echo ""
 echo -e "${BLUE}File yang di-sync:${NC}"
 echo "  • backend/app.py"
-echo "  • backend/best_model.tflite"
+echo "  • backend/app_auto.py (Auto-Detection)"
+echo "  • backend/best_model_compatible.tflite"
 echo "  • backend/requirements.txt"
+echo "  • autostart/ (setup scripts)"
 echo "  • README.md"
+echo "  • AUTOSTART_AUTO.md"
 echo ""
 echo -e "${BLUE}Langkah selanjutnya di Raspberry Pi:${NC}"
 echo ""

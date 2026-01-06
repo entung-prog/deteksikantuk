@@ -14,19 +14,18 @@ build/
 # Virtual environments
 backend/venv/
 
-# Model files (large files)
+# Model files (large files) - keep .tflite for deployment
 *.h5
-*.tflite
 *.weights.h5
 
 # Jupyter Notebook
 .ipynb_checkpoints
 *.ipynb
 
-# Test results and temporary files
-backend/test_results/
+# Documentation and thesis files
+docs_laporan/
 *.docx
-*.txt
+*.pdf
 
 # IDE
 .vscode/
@@ -41,3 +40,6 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Temporary files
+.lgd-*

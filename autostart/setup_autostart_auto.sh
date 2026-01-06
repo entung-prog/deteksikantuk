@@ -1,10 +1,10 @@
 #!/bin/bash
-# Setup auto-start untuk Drowsiness Detection System di Raspberry Pi
+# Setup auto-start untuk Drowsiness Detection System (Auto Version) di Raspberry Pi
 
 set -e
 
 echo "=========================================="
-echo "Auto-Start Setup - Drowsiness Detection"
+echo "Auto-Start Setup - Auto Detection Version"
 echo "=========================================="
 echo ""
 
@@ -20,14 +20,17 @@ fi
 
 # Get current directory
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-APP_DIR="$SCRIPT_DIR/backend"
+PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
+APP_DIR="$PROJECT_DIR/backend"
 VENV_PATH="$APP_DIR/venv"
-APP_PATH="$APP_DIR/app.py"
+APP_PATH="$APP_DIR/app_auto.py"
 LOG_DIR="/var/log/drowsiness"
 
+echo "📁 Project directory: $PROJECT_DIR"
 echo "📁 Application directory: $APP_DIR"
 echo "🐍 Virtual environment: $VENV_PATH"
 echo "📝 Log directory: $LOG_DIR"
+echo "🚀 Application: app_auto.py (Auto-Detection)"
 echo ""
 
 # Check if venv exists
@@ -41,9 +44,9 @@ if [ ! -d "$VENV_PATH" ]; then
     exit 1
 fi
 
-# Check if app.py exists
+# Check if app_auto.py exists
 if [ ! -f "$APP_PATH" ]; then
-    echo "❌ app.py not found at $APP_PATH"
+    echo "❌ app_auto.py not found at $APP_PATH"
     exit 1
 fi
 
@@ -55,12 +58,12 @@ echo "✅ Log directory created: $LOG_DIR"
 echo ""
 
 # Create systemd service file
-SERVICE_FILE="/etc/systemd/system/drowsiness.service"
+SERVICE_FILE="/etc/systemd/system/drowsiness-auto.service"
 echo "📄 Creating systemd service file..."
 
 sudo tee $SERVICE_FILE > /dev/null <<EOF
 [Unit]
-Description=Drowsiness Detection System
+Description=Drowsiness Detection System (Auto-Detection)
 After=network.target
 
 [Service]
@@ -71,11 +74,11 @@ Environment="PATH=$VENV_PATH/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/b
 ExecStart=$VENV_PATH/bin/python3 $APP_PATH
 Restart=always
 RestartSec=10
-StandardOutput=append:$LOG_DIR/drowsiness.log
-StandardError=append:$LOG_DIR/drowsiness-error.log
+StandardOutput=append:$LOG_DIR/drowsiness-auto.log
+StandardError=append:$LOG_DIR/drowsiness-auto-error.log
 
 # Logging
-SyslogIdentifier=drowsiness
+SyslogIdentifier=drowsiness-auto
 
 [Install]
 WantedBy=multi-user.target
@@ -92,13 +95,13 @@ echo ""
 
 # Enable service
 echo "🚀 Enabling auto-start on boot..."
-sudo systemctl enable drowsiness.service
+sudo systemctl enable drowsiness-auto.service
 echo "✅ Auto-start enabled"
 echo ""
 
 # Start service
 echo "▶️  Starting service..."
-sudo systemctl start drowsiness.service
+sudo systemctl start drowsiness-auto.service
 echo "✅ Service started"
 echo ""
 
@@ -108,7 +111,7 @@ sleep 3
 # Check status
 echo "📊 Service status:"
 echo "=========================================="
-sudo systemctl status drowsiness.service --no-pager
+sudo systemctl status drowsiness-auto.service --no-pager
 echo "=========================================="
 echo ""
 
@@ -116,14 +119,16 @@ echo ""
 echo "✅ Setup complete!"
 echo ""
 echo "Useful commands:"
-echo "  Start:   sudo systemctl start drowsiness"
-echo "  Stop:    sudo systemctl stop drowsiness"
-echo "  Restart: sudo systemctl restart drowsiness"
-echo "  Status:  sudo systemctl status drowsiness"
-echo "  Logs:    sudo journalctl -u drowsiness -f"
-echo "  Log file: tail -f $LOG_DIR/drowsiness.log"
+echo "  Start:   sudo systemctl start drowsiness-auto"
+echo "  Stop:    sudo systemctl stop drowsiness-auto"
+echo "  Restart: sudo systemctl restart drowsiness-auto"
+echo "  Status:  sudo systemctl status drowsiness-auto"
+echo "  Logs:    sudo journalctl -u drowsiness-auto -f"
+echo "  Log file: tail -f $LOG_DIR/drowsiness-auto.log"
 echo ""
 echo "Web interface will be available at:"
 echo "  http://$(hostname -I | awk '{print $1}'):5000"
 echo ""
-echo "🎉 System will now start automatically on boot!"
+echo "🎉 Auto-Detection System will now start automatically on boot!"
+echo "   No button press needed - detection starts immediately!"
+echo ""
